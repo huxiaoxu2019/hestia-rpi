@@ -3,16 +3,17 @@
 import socket
 
 _s = ''
+_sFile = ''
 
 def start(ip, port):
-    global _s
+    global _s, _sFile
     _s = socket.socket(socket.AF_INET)
     _s.connect((ip, port))
-    return _s
+    _sFile = _s.makefile()
 
 def readLine():
-    global _s
-    return _s.recv(10)
+    global _sFile
+    return _sFile.readline()
 
 def writeLn(msg):
     global _s
