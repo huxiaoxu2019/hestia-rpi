@@ -12,13 +12,9 @@ def start(ip, port):
 
 def readLine():
     global _s
-    while True:
-        b = _s.recv(1)
-        rs += b
-        if b == '/n':
-            break
-    return rs
+    return _s.recv(10)
 
 def writeLn(msg):
     global _s
-    _s.send(msg + '/n')
+    _s.send(msg + '\n')
+    print 'msg sent' + msg
