@@ -1,23 +1,21 @@
 #!/usr/bin/env python
 
-import sys, os, socket
+import sys, os, socket, json
 
 HESTIA_RPI_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HESTIA_RPI_PATH)
 
-from hestiarpi.config import common
-from hestiarpi.library.brain import handler
-from hestiarpi.library.server import server
-import hestiarpi.model.message as htmessage
+import hestiarpi.config as htconfig
+import hestiarpi.library as htlibrary
+import hestiarpi.model as htmodel
 
-server.start(common.SERVER_IP, common.SERVER_SOCKET_PORT)
+# start socket server
+htlibrary.server.server.start(htconfig.common.SERVER_IP, htconfig.common.SERVER_SOCKET_PORT)
 
-print htmessage.get_rpi_data_device_info_message()
-
-msg = '{"errno":0,"errmsg":"successfully","data":{"message_type":' + str(htmessage.MESSAGE_TYPE_RPI_DATA_DEVICE_INFO) +',"client_key":"raspberry_pi_client_key","token":"aaabbbccc"}}'
-
-server.writeline(msg)
+# send identity info (client key) to server
+msg = htmodel.message.get_rpi_data_device_info_message()
+htlibrary.server.server.writeline(json.dumps(msg))
 
 while True:
-    msg = server.readline()
-    handler.execute(msg)
+    msg = htlibrary.server.server.readline()
+    htlibrary.brain.handler.execute(msg)

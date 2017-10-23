@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import socket
+import hestiarpi.config as htconfig
 
 _s = ''
 _sFile = ''
@@ -18,4 +19,5 @@ def readline():
 def writeline(msg):
     global _s
     _s.send(msg + '\n')
-    print 'msg sent' + msg
+    if (htconfig.common.DEBUG == True):
+        print "msg sent:" + msg
