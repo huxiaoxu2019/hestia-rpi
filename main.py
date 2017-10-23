@@ -6,8 +6,8 @@ HESTIA_RPI_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HESTIA_RPI_PATH)
 
 from hestiarpi.config import common, model
-from hestiarpi.client import server
 from hestiarpi.library.brain import handler
+from hestiarpi.library.server import server
 
 server.start(common.SERVER_IP, common.SERVER_SOCKET_PORT)
 
