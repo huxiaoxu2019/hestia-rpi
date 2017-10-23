@@ -11,11 +11,11 @@ def start(ip, port):
     _s.connect((ip, port))
     _sFile = _s.makefile()
 
-def readLine():
+def readline():
     global _sFile
     return _sFile.readline()
 
-def writeLn(msg):
+def writeline(msg):
     global _s
     _s.send(msg + '\n')
     print 'msg sent' + msg
