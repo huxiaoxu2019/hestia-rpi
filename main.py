@@ -1,21 +1,19 @@
 #!/usr/bin/env python
 
-import sys, os, socket, json
+import sys, os, socket, json, threading
 
 HESTIA_RPI_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HESTIA_RPI_PATH)
 
-import hestiarpi.config as htconfig
-import hestiarpi.library as htlibrary
-import hestiarpi.model as htmodel
+from hestiarpi.library.server import server
+from hestiarpi.config import common
 
 # start socket server
-htlibrary.server.server.start(htconfig.common.SERVER_IP, htconfig.common.SERVER_SOCKET_PORT)
+server.start(common.SERVER_IP, common.SERVER_SOCKET_PORT)
 
-# send identity info (client key) to server
-msg = htmodel.message.get_rpi_data_device_info_message()
-htlibrary.server.server.writeline(json.dumps(msg))
+t1 =threading.Thread(target=server.start, args=(htconfig.common.SERVER_IP, htconfig.common.SERVER_SOCKET_PORT))
 
-while True:
-    msg = htlibrary.server.server.readline()
-    htlibrary.brain.handler.execute(msg)
+t1.start()
+t1.join
+
+print 'server shutdown'
