@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import socket, json
 
 from hestiarpi.model import message

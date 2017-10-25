@@ -6,14 +6,12 @@ HESTIA_RPI_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HESTIA_RPI_PATH)
 
 from hestiarpi.library.server import server
+from hestiarpi.library.monitor import rpi
 from hestiarpi.config import common
 
 # start socket server
-server.start(common.SERVER_IP, common.SERVER_SOCKET_PORT)
-
-t1 =threading.Thread(target=server.start, args=(htconfig.common.SERVER_IP, htconfig.common.SERVER_SOCKET_PORT))
+t1 = threading.Thread(target=server.start, args=(common.SERVER_IP, common.SERVER_SOCKET_PORT))
+t2 = threading.Thread(target=rpi.start)
 
 t1.start()
-t1.join
-
-print 'server shutdown'
+t2.start()
