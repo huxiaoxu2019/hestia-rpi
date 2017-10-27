@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, os, socket
+import sys, os, socket, RPi.GPIO as GPIO, time
 
 HESTIA_RPI_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HESTIA_RPI_PATH)
