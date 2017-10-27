@@ -1,19 +1,17 @@
 #!/usr/bin/env python
 
-import sys, os, socket, RPi.GPIO as GPIO, time
+import sys, os, socket, json, threading
 
 HESTIA_RPI_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HESTIA_RPI_PATH)
 
-from hestiarpi.config import common, model
-from hestiarpi.client import server
-from hestiarpi.library.brain import handler
+from hestiarpi.library.server import server
+from hestiarpi.library.monitor import rpi
+from hestiarpi.config import common
 
-server.start(common.SERVER_IP, common.SERVER_SOCKET_PORT)
+# start socket server
+t1 = threading.Thread(target=server.start, args=(common.SERVER_IP, common.SERVER_SOCKET_PORT))
+t2 = threading.Thread(target=rpi.start)
 
-msg = '{"errno":0,"errmsg":"successfully","data":{"message_type":' + str(model.MESSAGE_TYPE_RPI_DATA_DEVICE_INFO) +',"client_key":"raspberry_pi_client_key","token":"aaabbbccc"}}'
-server.writeLn(msg)
-
-while True:
-    msg = server.readLine()
-    handler.execute(msg)
+t1.start()
+t2.start()
