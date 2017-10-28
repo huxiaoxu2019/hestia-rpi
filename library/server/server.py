@@ -1,4 +1,4 @@
-import socket, json
+import socket, json, sys, logging
 
 from hestiarpi.model import message
 from hestiarpi.library.brain import handler
@@ -24,7 +24,6 @@ def readline():
     return _sFile.readline()
 
 def writeline(msg):
+    logging.info("[library.server.server:writeline] msg sent:" + msg)
     global _s
     _s.send(msg + '\n')
-    if (common.DEBUG == True):
-        print "msg sent:" + msg
