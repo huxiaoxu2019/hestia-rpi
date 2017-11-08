@@ -24,7 +24,7 @@ t2 = threading.Thread(target=rpi.start)
 t1.setDaemon(True)
 t2.setDaemon(True)
 t1.start()
-t2.start(), logging
+t2.start()
 
 # other
 logging.info("[main] server started")
