@@ -58,4 +58,5 @@ def _set_status(msg):
     _last_entry["last_time"] = int(math.floor(time.time()))
 
     # print
-    logging.info("[library.brain.location:_set_status] now entry info status:" + str(_last_entry["last_status"]) + " time:" + str(_last_entry["last_time"]))
+    logging.info("[library.brain.location:_set_status] now entry info status:"
+            + str(_last_entry["last_status"]) + " time:" + str(_last_entry["last_time"]))
