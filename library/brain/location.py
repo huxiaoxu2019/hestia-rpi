@@ -79,10 +79,10 @@ def _monitor():
     while True:
         logging.info("[library.brain.location:_monitor] did start")
         if _last_entry["last_dis"] < _DIS_HOME_BOUNDARY and (_last_entry["last_status"] == _STATUS_SMALLER or _last_entry["last_status"] == _STATUS_CONTINUOUS_SMALER) and (int((math.floor(time.time()))) - _last_entry["last_time"] < _TIME_MAX_PAST_4_MONITOR):
-                   # back home
+            # back home
             _back_home()
         elif _last_entry["last_dis"] >= _DIS_HOME_BOUNDARY and (_last_entry["last_status"] == _STATUS_BIGGER or _last_entry["last_status"] == _STATUS_CONTINUOUS_BIGGER) and (int((math.floor(time.time()))) - _last_entry["last_time"] < _TIME_MAX_PAST_4_MONITOR):
-                   # leave home
+            # leave home
             _leave_home()
         # sleep
         time.sleep(_TIME_INTERNAL_4_MONITOR)
