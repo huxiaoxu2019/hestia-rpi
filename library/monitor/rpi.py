@@ -2,20 +2,13 @@
 
 import RPi.GPIO as GPIO
 from hestiarpi.config import common
-import time, logging
+import time, logging, threading, socket, errno
 
 def start():
-    _observe_temp_module()
+    logging.info("[library.monitor.rpi:start] started")
     _observe_light_module()
-    logging.info("[library.monitor.rpi:start] done...")
-
-def _observe_temp_module():
-    pass
 
 def _observe_light_module():
-    pass
-
-def get_temp_data():
     pass
 
 def get_light_data():

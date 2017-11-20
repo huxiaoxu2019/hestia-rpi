@@ -1,6 +1,8 @@
 import logging, json, math, time, threading
 from hestiarpi.library.helper import geo
 from hestiarpi.config import common
+from hestiarpi.library.monitor import yeelight
+from hestiarpi.library.monitor import rpi
 
 _STATUS_NOT_CHANGED = 0
 _STATUS_BIGGER = 1
@@ -36,11 +38,11 @@ def _set_status(msg):
     msg_obj = json.loads(msg)
     dis = geo.get_distance_hav(msg_obj["data"]["lnt"], msg_obj["data"]["lat"], common.HOME_LNG, common.HOME_LAT)
     dis = int(math.floor(dis * 1000))
-    logging.info("[library.brain.location:_set_status] dis:" + str(dis) + "m")
+    #logging.info("[library.brain.location:_set_status] dis:" + str(dis) + "m")
 
     # frequency
     if _last_entry["last_time"] + _TIME_INTERNAL >= int((math.floor(time.time()))):
-        logging.info("[library.brain.location:_set_status] return by frequency limit")
+        #logging.info("[library.brain.location:_set_status] return by frequency limit")
         return
 
     # set status
@@ -93,6 +95,21 @@ def _leave_home():
     global _did_back_home
     if _did_leave_home == True:
         return
+
+    # turn off the light while the light in the room is bright and light is on
+    yeelight_bedroom_light_info = yeelight.get_bulb_info(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
+    logging.info("[library.brain.location:_back_home] the bulb power:" + str(yeelight_bedroom_light_info[yeelight.IDX_BULB_INFO_POWER]))
+    if yeelight_bedroom_light_info[yeelight.IDX_BULB_INFO_POWER] == "off":
+        logging.info("[library.brain.location:_back_home] the light is already off")
+        return
+    rpi_light_sensor = rpi.get_light_data()
+    logging.info("[library.brain.location:_back_home] the rpi light sersor data:" + str(rpi_light_sensor))
+    if rpi_light_sensor == 1:
+        return
+    logging.info("[library.brain.location:_back_home] to turn off the light")
+    yeelight.toggle_bulb(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
+
+    # set flags
     _did_leave_home = True
     _did_back_home = False
 
@@ -102,5 +119,21 @@ def _back_home():
     global _did_back_home
     if _did_back_home == True:
         return
+
+    # turn on the light while the light in the room is dim and light is off
+    yeelight_bedroom_light_info = yeelight.get_bulb_info(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
+    logging.info("[library.brain.location:_back_home] the bulb power:" + str(yeelight_bedroom_light_info[yeelight.IDX_BULB_INFO_POWER]))
+    if yeelight_bedroom_light_info[yeelight.IDX_BULB_INFO_POWER] == "on":
+        logging.info("[library.brain.location:_back_home] the light is already on")
+        return
+    rpi_light_sensor = rpi.get_light_data()
+    logging.info("[library.brain.location:_back_home] the rpi light sersor data:" + str(rpi_light_sensor))
+    if rpi_light_sensor == 0:
+        return
+    logging.info("[library.brain.location:_back_home] to turn on the light")
+    yeelight.toggle_bulb(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
+    yeelight.set_bright(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT, 100)
+    
+    # set flags
     _did_back_home = True
     _did_leave_home = False
