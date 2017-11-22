@@ -17,7 +17,8 @@ def start(ip, port):
     writeline(json.dumps(msg))
     while True:
         msg = readline()
-        handler.execute(msg)
+        if _isJson(msg) == True:
+            handler.execute(msg)
 
 def readline():
     global _sFile
@@ -27,3 +28,10 @@ def writeline(msg):
     logging.info("[library.server.server:writeline] msg sent:" + msg)
     global _s
     _s.send(msg + '\n')
+
+def _isJson(msg):
+    try:
+        json.loads(msg)
+    except ValueError:
+        return False
+    return True
