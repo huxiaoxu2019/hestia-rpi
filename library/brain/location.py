@@ -83,7 +83,7 @@ def _monitor():
         if _last_entry["last_dis"] < _DIS_HOME_BOUNDARY and (_last_entry["last_status"] == _STATUS_SMALLER or _last_entry["last_status"] == _STATUS_CONTINUOUS_SMALER) and (int((math.floor(time.time()))) - _last_entry["last_time"] < _TIME_MAX_PAST_4_MONITOR):
             # back home
             _back_home()
-        elif _last_entry["last_dis"] >= _DIS_HOME_BOUNDARY and (_last_entry["last_status"] == _STATUS_BIGGER or _last_entry["last_status"] == _STATUS_CONTINUOUS_BIGGER) and (int((math.floor(time.time()))) - _last_entry["last_time"] < _TIME_MAX_PAST_4_MONITOR):
+        elif _last_entry["last_dis"] >= _DIS_HOME_BOUNDARY:
             # leave home
             _leave_home()
         # sleep
