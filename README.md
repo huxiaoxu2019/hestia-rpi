@@ -9,3 +9,6 @@ So, Hestia is the project which controlls the devices in home smartly. Additiona
 ## Hestia RPi
 
 [See more at Hestia Server](https://github.com/GenialX/hestia-server)
+
+## CHANGE LOG
+[See more at here](https://github.com/GenialX/hestia-rpi/blob/master/CHANGE_LOG)
