@@ -159,7 +159,7 @@ def operate_on_bulb(idx, method, params):
     port=_detected_bulbs[bulb_ip][5]
     try:
         tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        logging.info( "connect " + str(bulb_ip) + str(port) + "...")
+        logging.info( "connect " + str(bulb_ip) + ":" + str(port) + "...")
         tcp_socket.connect((bulb_ip, int(port)))
         msg="{\"id\":" + str(_next_cmd_id()) + ",\"method\":\""
         msg += method + "\",\"params\":[" + params + "]}\r\n"
