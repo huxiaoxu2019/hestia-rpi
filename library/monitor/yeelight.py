@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# author yeelight.com
+# author genialx <admin@ihuxu.com>
+
 from hestiarpi.config import common
 
 import logging
