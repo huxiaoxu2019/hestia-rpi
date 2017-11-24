@@ -175,3 +175,7 @@ def toggle_bulb(idx):
 def set_bright(idx, bright):
     _debug("set_bright")
     operate_on_bulb(idx, "set_bright", str(bright))
+
+def set_rgb(idx, rgb):
+    _debug("set_rgb")
+    operate_on_bulb(idx, "set_rgb", str(rgb))
