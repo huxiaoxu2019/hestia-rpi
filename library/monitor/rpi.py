@@ -9,7 +9,7 @@ def start():
     _observe_light_module()
 
 def _observe_light_module():
-    pass
+    get_light_data()
 
 def get_light_data():
     GPIO.setwarnings(False)
