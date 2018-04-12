@@ -74,7 +74,7 @@ def _set_status(msg):
     # print
     logging.info("[library.brain.location:_set_status] now entry info status:"
             + str(_last_entry["last_status"]) + " time:" + str(_last_entry["last_time"])
-            + "dis:" + str(_last_entry["last_dis"]))
+            + " dis:" + str(_last_entry["last_dis"]))
 
 # _last_entry = {"last_dis" : 0, "last_time" : 0, "last_status" : _STATUS_NOT_CHANGED}
 def _monitor():
