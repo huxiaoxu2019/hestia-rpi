@@ -2,11 +2,15 @@
 
 import RPi.GPIO as GPIO
 from hestiarpi.config import common
-import time, logging, threading, socket, errno
+import time, logging, threading, socket, errno, commands
+
+IR_REMOTE_CMD_TV_TURE_ON = 'KEY_POWER';
+IR_REMOTE_CMD_TV_TURE_OFF = 'KEY_POWER';
+IR_REMOTE_CMD_AIR_CONDITIONER_TURE_ON = 'KEY_OPEN';
+IR_REMOTE_CMD_AIR_CONDITIONER_TURE_OFF = 'KEY_CLOSE';
 
 def start():
     logging.info("[library.monitor.rpi:start] started")
-    _observe_light_module()
 
 def _observe_light_module():
     pass
@@ -34,3 +38,8 @@ def set_sound_off():
     GPIO.setup(common.GPIO_ALERT_OUTPUT_DATA, GPIO.OUT)
     GPIO.output(common.GPIO_ALERT_OUTPUT_DATA, GPIO.HIGH)
     GPIO.cleanup((common.GPIO_ALERT_OUTPUT_VCC, common.GPIO_ALERT_OUTPUT_DATA))
+
+def send_cmd_by_ir_remote(cmd):
+    status, output = commands.getstatusoutput("irsend SEND_ONCE /home/pi/lircd.conf " + cmd)
+    logging.debug("[library.monitor.rpi:send_cmd_by_ir_remote] status:" + status)
+
