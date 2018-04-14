@@ -42,4 +42,6 @@ def set_sound_off():
 def send_cmd_by_ir_remote(cmd):
     status, output = commands.getstatusoutput("irsend SEND_ONCE /home/pi/lircd.conf " + cmd)
     logging.debug("[library.monitor.rpi:send_cmd_by_ir_remote] status:" + status)
+    for o in output:
+        logging.debug("[library.monitor.rpi:send_cmd_by_ir_remote] output:" + o )
 
