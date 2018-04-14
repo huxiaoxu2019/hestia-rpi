@@ -10,10 +10,11 @@ _STATUS_SMALLER = 2
 _STATUS_CONTINUOUS_BIGGER = 3
 _STATUS_CONTINUOUS_SMALER = 4
 
-_TIME_INTERNAL = 60 # one minute for save location info to var `_last_entry`
+_TIME_INTERNAL_4_SAVING_ENTRY = 60 # one minute for save location info to var `_last_entry`
 _TIME_INTERNAL_4_MONITOR = 60 # for `monitor interval`
-_TIME_MAX_PAST_4_MONITOR = 600 # for monitor `max past time`, within which to operate
+_TIME_MAX_PAST_4_MONITOR = 600 # for monitor `max past time`, within which not to trigger back home event
 _DIS_HOME_BOUNDARY = 1000 # for `home boundary`, by which to determine back home or leave home
+_TIME_INTERNAL_4_BACK_HOME_AGAIN = 3600 # one hour, allow to trigger back home event again, even it's already in back home event
 
 _last_entry = {"last_dis" : 0, "last_time" : 0, "last_status" : _STATUS_NOT_CHANGED}
 
@@ -41,7 +42,7 @@ def _set_status(msg):
     #logging.info("[library.brain.location:_set_status] dis:" + str(dis) + "m")
 
     # frequency
-    if _last_entry["last_time"] + _TIME_INTERNAL >= int((math.floor(time.time()))):
+    if _last_entry["last_time"] + _TIME_INTERNAL_4_SAVING_ENTRY >= int((math.floor(time.time()))):
         #logging.info("[library.brain.location:_set_status] return by frequency limit")
         return
 
@@ -119,6 +120,12 @@ def _back_home():
     logging.info("[library.brain.location:_back_home] did start")
     global _did_leave_home
     global _did_back_home
+    global _last_entry
+
+    if int((math.floor(time.time()))) - _last_entry["last_time"] > _TIME_INTERNAL_4_BACK_HOME_AGAIN:
+        _did_back_home = False
+        _did_leave_home = True
+
     if _did_back_home == True:
         logging.info("[library.brain.location:_back_home] back home is True")
         return
