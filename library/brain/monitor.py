@@ -1,7 +1,7 @@
 import logging, json
 from hestiarpi.library.monitor import yeelight
 from hestiarpi.library.monitor import rpi
-from hestiarpi.model.message import message
+from hestiarpi.model import message
 from hestiarpi.library.server import server
 
 def execute(msg):
