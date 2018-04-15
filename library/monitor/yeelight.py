@@ -182,3 +182,7 @@ def set_bright(idx, bright):
 def set_rgb(idx, rgb):
     _debug("set_rgb")
     operate_on_bulb(idx, "set_rgb", str(rgb))
+
+def set_ct_abx(idx, ct):
+    _debug("set_ct_abx")
+    operate_on_bulb(idx, "set_ct_abx", str(ct))
