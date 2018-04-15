@@ -13,6 +13,8 @@ def execute(msg):
         pass
     elif message_type == message.MESSAGE_TYPE_IOS_DATA_LOCATION:
         location.execute(msg)
+    elif message_type == message.MESSAGE_TYPE_IOS_REQUEST_HOME_DEVICE:
+        monitor.execute(msg)
     elif message_type == message.MESSAGE_TYPE_CSERVER_DATA_SOMEWHAT:
         pass
     elif message_type == message.MESSAGE_TYPE_RPI_DATA_DEVICE_INFO:
