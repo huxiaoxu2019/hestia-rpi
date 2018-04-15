@@ -18,6 +18,7 @@ MESSAGE_TYPE_CSERVER_DATA_SOMEWHAT = 2000
 # FROM RPi
 # the home device info
 MESSAGE_TYPE_RPI_DATA_DEVICE_INFO = 3000
+MESSAGE_TYPE_RPI_DATA_HOME_DEVICE_INFO = 3001
 
 # {'errno': 0, 'data': {'messge_type': 0, 'token': 'aaabbbccc'}, 'errmsg': 'successfully'}
 def get_common_msg():
