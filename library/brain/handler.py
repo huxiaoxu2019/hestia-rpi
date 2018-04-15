@@ -2,6 +2,7 @@
 import json, logging
 
 from hestiarpi.library.brain import location
+from hestiarpi.library.brain import monitor
 from hestiarpi.model import message
 
 # @param string msg json formated string
