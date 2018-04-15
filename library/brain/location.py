@@ -146,7 +146,7 @@ def _back_home():
         return
     logging.info("[library.brain.location:_back_home] to turn on the light")
     yeelight.toggle_bulb(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
-    sleep(1)
+    this.sleep(1)
     yeelight.set_bright(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT, 100)
-    sleep(1)
+    this.sleep(1)
     yeelight.set_rgb(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT, 256)
