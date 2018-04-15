@@ -1,10 +1,11 @@
 import logging, json
+
 from hestiarpi.library.monitor import yeelight
 from hestiarpi.library.monitor import rpi
 from hestiarpi.model import message
-from hestiarpi.library import server
 
 def execute(msg):
+    from hestiarpi.library.server import server
     logging.info("[library.brain.monitor:execute] msg:" + msg)
     data = {}
     data["bulb_status"] = yeelight.get_bulb_info(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
