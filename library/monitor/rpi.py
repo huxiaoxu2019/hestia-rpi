@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-
+#!/usr/bin/env python 
 import RPi.GPIO as GPIO
 from hestiarpi.config import common
 import time, logging, threading, socket, errno, commands
@@ -11,6 +10,7 @@ IR_REMOTE_CMD_AIR_CONDITIONER_TURE_OFF = 'KEY_CLOSE';
 
 def start():
     logging.info("[library.monitor.rpi:start] started")
+    _observe_light_module()
 
 def _observe_light_module():
     get_light_data()
@@ -22,6 +22,18 @@ def get_light_data():
     GPIO.setup(common.GPIO_LIGHT_INPUT_DATA, GPIO.IN)
     GPIO.output(common.GPIO_LIGHT_OUTPUT_VCC, GPIO.HIGH)
     return GPIO.input(common.GPIO_LIGHT_INPUT_DATA)
+
+def set_fan_on():
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(common.GPIO_FAN_VCC, GPIO.OUT)
+    GPIO.output(common.GPIO_FAN_VCC, GPIO.HIGH)
+
+def set_fan_off():
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(common.GPIO_FAN_VCC, GPIO.OUT)
+    GPIO.output(common.GPIO_FAN_VCC, GPIO.LOW)
 
 def set_sound_on():
     GPIO.setwarnings(False)
