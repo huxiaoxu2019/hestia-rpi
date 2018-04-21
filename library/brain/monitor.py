@@ -3,7 +3,7 @@ import logging, json
 from hestiarpi.library.monitor import yeelight
 from hestiarpi.library.monitor import rpi
 from hestiarpi.model import message
-import hestiarpi.library.server
+import hestiarpi.library.server as S
 
 def execute(msg):
     logging.info("[library.brain.monitor:execute] msg:" + msg)
@@ -13,4 +13,4 @@ def execute(msg):
     result = message.get_common_msg()
     data["message_type"] = message.MESSAGE_TYPE_RPI_DATA_HOME_DEVICE_INFO
     result["data"] = data
-    server.server.writeline(json.dumps(result))
+    S.server.writeline(json.dumps(result))
