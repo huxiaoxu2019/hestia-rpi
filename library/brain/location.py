@@ -150,3 +150,7 @@ def _back_home():
     yeelight.set_bright(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT, 100)
     this.sleep(1)
     yeelight.set_rgb(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT, 256)
+    this.sleep(1)
+    rpi.send_cmd_by_ir_remote(rpi.IR_REMOTE_CMD_AIR_CONDITIONER_TURE_ON)
+    this.sleep(1)
+    rpi.send_cmd_by_ir_remote(rpi.IR_REMOTE_CMD_TV_TURE_ON)

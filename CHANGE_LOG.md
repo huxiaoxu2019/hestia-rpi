@@ -1,3 +1,4 @@
+- [FEATURE] turn on the air-conditioner and tv while backing home at 2018.05.11
 - [OPTIMIZATION] try to re-connect to ther server while throwing the socket exception at 2018.05.10
 - [BUG] fix the bug while import package circularly, see more from [article](http://blog.ihuxu.com/the-solution-to-the-problem-of-circular-import-in-python/) at 2018.04.21
 - [FEATURE] add set_rgb method for yeelight at 2017.11.24
