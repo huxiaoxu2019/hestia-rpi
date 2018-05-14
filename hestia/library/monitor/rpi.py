@@ -1,6 +1,6 @@
 #!/usr/bin/env python 
 import RPi.GPIO as GPIO
-from hestiarpi.config import common
+from hestia.config import common
 import time, logging, threading, socket, errno, commands
 
 IR_REMOTE_CMD_TV_TURE_ON = 'KEY_POWER';

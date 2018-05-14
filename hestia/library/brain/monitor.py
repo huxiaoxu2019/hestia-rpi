@@ -1,9 +1,9 @@
 import logging, json
 
-from hestiarpi.library.monitor import yeelight
-from hestiarpi.library.monitor import rpi
-from hestiarpi.model import message
-import hestiarpi.library.server as S
+from hestia.library.monitor import yeelight
+from hestia.library.monitor import rpi
+from hestia.model import message
+import hestia.library.server as S
 
 def execute(msg):
     logging.info("[library.brain.monitor:execute] msg:" + msg)

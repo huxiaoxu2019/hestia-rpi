@@ -1,8 +1,8 @@
 import socket, json, sys, logging, time
 
-from hestiarpi.model import message
-from hestiarpi.library.brain import handler
-from hestiarpi.config import common
+from hestia.model import message
+from hestia.library.brain import handler
+from hestia.config import common
 
 _s = ''
 _sFile = ''

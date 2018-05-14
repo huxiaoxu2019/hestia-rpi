@@ -2,13 +2,13 @@
 
 import sys, os, socket, json, threading, logging, time
 
-HESTIA_RPI_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HESTIA_RPI_PATH = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HESTIA_RPI_PATH)
 
-from hestiarpi.library.server import server
-from hestiarpi.library.monitor import rpi
-from hestiarpi.library.monitor import yeelight
-from hestiarpi.config import common
+from hestia.library.server import server
+from hestia.library.monitor import rpi
+from hestia.library.monitor import yeelight
+from hestia.config import common
 
 # log settings
 # CRITICAL > ERROR > WARNING > INFO > DEBUG > NOTSET

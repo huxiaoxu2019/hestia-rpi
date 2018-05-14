@@ -3,7 +3,7 @@
 # author yeelight.com
 # author genialx <admin@ihuxu.com>
 
-from hestiarpi.config import common
+from hestia.config import common
 
 import logging
 import socket

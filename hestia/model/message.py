@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import hestiarpi.config.common as htcommon
+import hestia.config.common as htcommon
 
 # UNKNOWN
 MESSAGE_TYPE_UNKNOWN = 0

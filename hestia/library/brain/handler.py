@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import json, logging
 
-from hestiarpi.library.brain import location
-from hestiarpi.library.brain import monitor
-from hestiarpi.model import message
+from hestia.library.brain import location
+from hestia.library.brain import monitor
+from hestia.model import message
 
 # @param string msg json formated string
 def execute(msg):

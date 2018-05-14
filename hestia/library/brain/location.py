@@ -1,8 +1,8 @@
 import logging, json, math, time, threading
-from hestiarpi.library.helper import geo
-from hestiarpi.config import common
-from hestiarpi.library.monitor import yeelight
-from hestiarpi.library.monitor import rpi
+from hestia.library.helper import geo
+from hestia.config import common
+from hestia.library.monitor import yeelight
+from hestia.library.monitor import rpi
 
 _STATUS_NOT_CHANGED = 0
 _STATUS_BIGGER = 1
