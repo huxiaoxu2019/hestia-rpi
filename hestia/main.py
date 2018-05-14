@@ -2,7 +2,7 @@
 
 import sys, os, socket, json, threading, logging, time
 
-HESTIA_RPI_PATH = os.path.dirname(os.path.abspath(__file__))
+HESTIA_RPI_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HESTIA_RPI_PATH)
 
 from hestia.library.server import server
@@ -15,7 +15,7 @@ from hestia.config import common
 logging.basicConfig(level = logging.NOTSET,
         format='[%(levelname)s] [%(asctime)s] [%(filename)s] [line:%(lineno)d] %(message)s',
         datefmt='%a, %d %b %Y %H:%M:%S',
-        filename='log',
+        filename=HESTIA_RPI_PATH + '/hestia/log',
         filemode='w')
 
 # start socket server & rpi monitor
