@@ -10,5 +10,18 @@ So, Hestia is the project which controlls the devices in home smartly. Additiona
 
 [See more at Hestia Server](https://github.com/GenialX/hestia-server)
 
+## Usage
+
+```shell
+# to run
+make start
+
+# to stop
+make stop
+
+# to tail log
+tail -f hestia/log hestia/console
+```
+
 ## CHANGE LOG
 [See more at here](https://github.com/GenialX/hestia-rpi/blob/master/hestia/CHANGE_LOG.md)
