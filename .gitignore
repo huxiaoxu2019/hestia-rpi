@@ -1,4 +1,4 @@
 *.pyc
-console
-log
+hestia/console
+hestia/log
 *.swp
