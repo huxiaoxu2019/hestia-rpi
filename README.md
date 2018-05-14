@@ -24,4 +24,4 @@ tail -f hestia/log hestia/console
 ```
 
 ## CHANGE LOG
-[See more at here](https://github.com/GenialX/hestia-rpi/blob/master/hestia/CHANGE_LOG.md)
+[See more at here](https://github.com/GenialX/hestia-rpi/blob/master/docs/CHANGE_LOG.md)
