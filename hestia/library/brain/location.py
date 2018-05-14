@@ -81,15 +81,18 @@ def _set_status(msg):
 def _monitor():
     global _last_entry
     while True:
-        logging.info("[library.brain.location:_monitor] did start")
-        if _last_entry["last_dis"] < _DIS_HOME_BOUNDARY and (_last_entry["last_status"] == _STATUS_SMALLER or _last_entry["last_status"] == _STATUS_CONTINUOUS_SMALER) and (int((math.floor(time.time()))) - _last_entry["last_time"] < _TIME_MAX_PAST_4_MONITOR):
-            # back home
-            _back_home()
-        elif _last_entry["last_dis"] >= _DIS_HOME_BOUNDARY:
-            # leave home
-            _leave_home()
-        # sleep
-        time.sleep(_TIME_INTERNAL_4_MONITOR)
+        try:
+            logging.info("[library.brain.location:_monitor] did start")
+            if _last_entry["last_dis"] < _DIS_HOME_BOUNDARY and (_last_entry["last_status"] == _STATUS_SMALLER or _last_entry["last_status"] == _STATUS_CONTINUOUS_SMALER) and (int((math.floor(time.time()))) - _last_entry["last_time"] < _TIME_MAX_PAST_4_MONITOR):
+                # back home
+                _back_home()
+            elif _last_entry["last_dis"] >= _DIS_HOME_BOUNDARY:
+                # leave home
+                _leave_home()
+            # sleep
+            time.sleep(_TIME_INTERNAL_4_MONITOR)
+        except Exception as e:
+            logging.warning( "Unexpected error:" + str(e))
 
 def _leave_home():
     logging.info("[library.brain.location:_leave_home] did start")
@@ -146,7 +149,11 @@ def _back_home():
         return
     logging.info("[library.brain.location:_back_home] to turn on the light")
     yeelight.toggle_bulb(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
-    this.sleep(1)
+    time.sleep(1)
     yeelight.set_bright(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT, 100)
-    this.sleep(1)
-    yeelight.set_rgb(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT, 256)
+    time.sleep(1)
+    yeelight.set_rgb(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT, 9302576)
+    time.sleep(1)
+    rpi.send_cmd_by_ir_remote(rpi.IR_REMOTE_CMD_AIR_CONDITIONER_TURE_ON)
+    time.sleep(1)
+    rpi.send_cmd_by_ir_remote(rpi.IR_REMOTE_CMD_TV_TURE_ON)
