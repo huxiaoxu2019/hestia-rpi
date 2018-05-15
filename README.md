@@ -10,6 +10,10 @@ So, Hestia is the project which controlls the devices in home smartly. Additiona
 
 [See more at Hestia Server](https://github.com/GenialX/hestia-server)
 
+The system structure
+
+![hestia rpi system structrue](https://docs.google.com/drawings/d/e/2PACX-1vTpgVZRdOXad7bBUJzhDz5WTLl1iY-sqSm7NcYyHcPN_yV31wJb0-6Ij7rV6fsWFKkHL01Ov1S6jUrO/pub?w=1582&h=688)
+
 ## Usage
 
 ```shell
