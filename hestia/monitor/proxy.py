@@ -14,7 +14,6 @@ from hestia.util import server
 def start():
     logging.info("[library.monitor.proxy] starting...")
     while True:
-        logging.info("library.monitor.proxy] dispose msg from _monitor_server_read_queue")
         msg = queue.pop_monitor_server_read_msg()
         if helper.isJson(msg) == True:
             _execute(msg)

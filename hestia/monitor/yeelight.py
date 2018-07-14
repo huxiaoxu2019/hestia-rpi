@@ -33,7 +33,10 @@ def _send_search_broadcast():
     msg = msg + "HOST: 239.255.255.250:1982\r\n"
     msg = msg + "MAN: \"ssdp:discover\"\r\n"
     msg = msg + "ST: wifi_bulb"
-    yeelight.scan_socket.sendto(msg, multicase_address)
+    try:
+        yeelight.scan_socket.sendto(msg, multicase_address)
+    except  yeelight.scan_socket.error, :
+        logging.warning("[library.monitor.yeelight:_send_search_broadcast] Error:%s" + str(e)) 
 
 def _bulbs_detection_loop():
     '''

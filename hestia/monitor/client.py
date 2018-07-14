@@ -13,7 +13,6 @@ from hestia.util import server
 def start():
     logging.info("[library.monitor.client] starting...")
     while True:
-        logging.info("library.monitor.client] dispose msg from _monitor_client_queue")
         msg = queue.pop_monitor_client_msg()
         if helper.isJson(msg) == True:
             _execute(msg)
