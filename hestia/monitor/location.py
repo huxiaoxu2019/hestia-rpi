@@ -1,10 +1,11 @@
 import logging, json, math, time, threading
 
-from hestia.util import geo
 from hestia.config import common
+from hestia.model import message
+from hestia.model import queue
+from hestia.util import geo
 from hestia.util import yeelight
 from hestia.util import rpi
-from hestia.model import message
 
 _STATUS_NOT_CHANGED = 0
 _STATUS_BIGGER = 1
@@ -29,7 +30,9 @@ def start():
     while True:
         try:
             logging.info("[library.proxy.location:_monitor] did start")
-            current_entry = message.pop_monitor_location_msg()
+            current_entry = queue.pop_monitor_location_msg()
+            if current_entry == "":
+                raise Exception("the msg from queue pop_monitor_location_msg is empty")
             _set_status(current_entry)
             if _last_entry["last_dis"] < _DIS_HOME_BOUNDARY and (_last_entry["last_status"] == _STATUS_SMALLER or _last_entry["last_status"] == _STATUS_CONTINUOUS_SMALER) and (int((math.floor(time.time()))) - _last_entry["last_time"] < _TIME_MAX_PAST_4_MONITOR):
                 # back home
@@ -41,6 +44,7 @@ def start():
             time.sleep(_TIME_INTERNAL_4_MONITOR)
         except Exception as e:
             logging.warning( "Unexpected error:" + str(e))
+            time.sleep(_TIME_INTERNAL_4_MONITOR)
 
 def _set_status(msg):
     global _last_entry

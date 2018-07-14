@@ -1,3 +1,4 @@
+import json
 def isJson(msg):
     try:
         json.loads(msg)

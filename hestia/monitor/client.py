@@ -1,7 +1,7 @@
 '''
 Processing the messages from the clients(android or iOS)
 '''
-import json, logging
+import json, logging, time
 
 from hestia.model import message
 from hestia.model import queue
