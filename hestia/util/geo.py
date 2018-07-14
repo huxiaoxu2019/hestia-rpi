@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from math import radians, cos, sin, asin, sqrt
+
 def get_distance_hav(lng1, lat1, lng2, lat2):
     # convert decimal degrees to radians
     lng1, lat1, lng2, lat2 = map(radians, [lng1, lat1, lng2, lat2])

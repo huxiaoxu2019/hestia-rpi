@@ -5,9 +5,10 @@ import sys, os, socket, json, threading, logging, time
 HESTIA_RPI_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HESTIA_RPI_PATH)
 
-from hestia.library.server import server
-from hestia.library.monitor import rpi
-from hestia.library.monitor import yeelight
+from hestia.monitor import server
+from hestia.monitor import yeelight
+from hestia.monitor import location
+from hestia.monitor import brain
 from hestia.config import common
 
 # log settings
@@ -18,17 +19,20 @@ logging.basicConfig(level = logging.NOTSET,
         filename=HESTIA_RPI_PATH + '/hestia/log',
         filemode='w')
 
-# start socket server & rpi monitor
-t1 = threading.Thread(target=server.start, args=(common.SERVER_IP, common.SERVER_SOCKET_PORT))
-t2 = threading.Thread(target=rpi.start)
-t3 = threading.Thread(target=yeelight.start)
+# start socket server & yeelight monitor
+t1 = threading.Thread(target=server.start)
+t2 = threading.Thread(target=yeelight.start)
+t3 = threading.Thread(target=location.start)
+t4 = threading.Thread(target=brain.start)
 
 t1.setDaemon(True)
 t2.setDaemon(True)
 t3.setDaemon(True)
+t4.setDaemon(True)
 t1.start()
 t2.start()
 t3.start()
+t4.start()
 
 # other
 logging.info("[main] server started")

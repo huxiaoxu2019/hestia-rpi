@@ -1,8 +1,10 @@
 import logging, json, math, time, threading
-from hestia.library.helper import geo
+
+from hestia.util import geo
 from hestia.config import common
-from hestia.library.monitor import yeelight
-from hestia.library.monitor import rpi
+from hestia.util import yeelight
+from hestia.util import rpi
+from hestia.model import message
 
 _STATUS_NOT_CHANGED = 0
 _STATUS_BIGGER = 1
@@ -18,19 +20,27 @@ _TIME_INTERNAL_4_BACK_HOME_AGAIN = 3600 # one hour, allow to trigger back home e
 
 _last_entry = {"last_dis" : 0, "last_time" : 0, "last_status" : _STATUS_NOT_CHANGED}
 
-_start_monitor = False
 _did_leave_home = False
 _did_back_home = False
 
-def execute(msg):
-    logging.info("[library.brain.location:execute] msg:" + msg)
-    global _start_monitor
-    _set_status(msg)
-    if _start_monitor == False:
-        _start_monitor = True
-        t1 = threading.Thread(target=_monitor)
-        t1.setDaemon(True)
-        t1.start()
+# _last_entry = {"last_dis" : 0, "last_time" : 0, "last_status" : _STATUS_NOT_CHANGED}
+def start():
+    global _last_entry
+    while True:
+        try:
+            logging.info("[library.brain.location:_monitor] did start")
+            current_entry = message.pop_monitor_location_msg()
+            _set_status(current_entry)
+            if _last_entry["last_dis"] < _DIS_HOME_BOUNDARY and (_last_entry["last_status"] == _STATUS_SMALLER or _last_entry["last_status"] == _STATUS_CONTINUOUS_SMALER) and (int((math.floor(time.time()))) - _last_entry["last_time"] < _TIME_MAX_PAST_4_MONITOR):
+                # back home
+                _back_home()
+            elif _last_entry["last_dis"] >= _DIS_HOME_BOUNDARY:
+                # leave home
+                _leave_home()
+            # sleep
+            time.sleep(_TIME_INTERNAL_4_MONITOR)
+        except Exception as e:
+            logging.warning( "Unexpected error:" + str(e))
 
 def _set_status(msg):
     global _last_entry
@@ -76,23 +86,6 @@ def _set_status(msg):
     logging.info("[library.brain.location:_set_status] now entry info status:"
             + str(_last_entry["last_status"]) + " time:" + str(_last_entry["last_time"])
             + " dis:" + str(_last_entry["last_dis"]))
-
-# _last_entry = {"last_dis" : 0, "last_time" : 0, "last_status" : _STATUS_NOT_CHANGED}
-def _monitor():
-    global _last_entry
-    while True:
-        try:
-            logging.info("[library.brain.location:_monitor] did start")
-            if _last_entry["last_dis"] < _DIS_HOME_BOUNDARY and (_last_entry["last_status"] == _STATUS_SMALLER or _last_entry["last_status"] == _STATUS_CONTINUOUS_SMALER) and (int((math.floor(time.time()))) - _last_entry["last_time"] < _TIME_MAX_PAST_4_MONITOR):
-                # back home
-                _back_home()
-            elif _last_entry["last_dis"] >= _DIS_HOME_BOUNDARY:
-                # leave home
-                _leave_home()
-            # sleep
-            time.sleep(_TIME_INTERNAL_4_MONITOR)
-        except Exception as e:
-            logging.warning( "Unexpected error:" + str(e))
 
 def _leave_home():
     logging.info("[library.brain.location:_leave_home] did start")

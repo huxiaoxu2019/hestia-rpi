@@ -8,13 +8,6 @@ IR_REMOTE_CMD_TV_TURE_OFF = 'KEY_POWER';
 IR_REMOTE_CMD_AIR_CONDITIONER_TURE_ON = 'KEY_OPEN';
 IR_REMOTE_CMD_AIR_CONDITIONER_TURE_OFF = 'KEY_CLOSE';
 
-def start():
-    logging.info("[library.monitor.rpi:start] started")
-    _observe_light_module()
-
-def _observe_light_module():
-    get_light_data()
-
 def get_light_data():
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BOARD)

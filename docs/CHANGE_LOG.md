@@ -1,3 +1,4 @@
+- [OPTIMIZATION] re-structure the project according to the [doc](http://pythonguidecn.readthedocs.io/zh/latest/writing/structure.html) at 2018.05.14
 - [FEATURE] turn on the air-conditioner and tv while backing home at 2018.05.11
 - [OPTIMIZATION] try to re-connect to ther server while throwing the socket exception at 2018.05.10
 - [BUG] fix the bug while import package circularly, see more from [article](http://blog.ihuxu.com/the-solution-to-the-problem-of-circular-import-in-python/) at 2018.04.21
