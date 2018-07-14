@@ -8,7 +8,8 @@ sys.path.insert(0, HESTIA_RPI_PATH)
 from hestia.monitor import server
 from hestia.monitor import yeelight
 from hestia.monitor import location
-from hestia.monitor import brain
+from hestia.monitor import proxy
+from hestia.monitor import client
 from hestia.config import common
 
 # log settings
@@ -21,18 +22,21 @@ logging.basicConfig(level = logging.NOTSET,
 
 # start socket server & yeelight monitor
 t1 = threading.Thread(target=server.start)
-t2 = threading.Thread(target=yeelight.start)
-t3 = threading.Thread(target=location.start)
-t4 = threading.Thread(target=brain.start)
+t2 = threading.Thread(target=proxy.start)
+t3 = threading.Thread(target=yeelight.start)
+t4 = threading.Thread(target=location.start)
+t5 = threading.Thread(target=client.start)
 
 t1.setDaemon(True)
 t2.setDaemon(True)
 t3.setDaemon(True)
 t4.setDaemon(True)
+t5.setDaemon(True)
 t1.start()
 t2.start()
 t3.start()
 t4.start()
+t5.start()
 
 # other
 logging.info("[main] server started")

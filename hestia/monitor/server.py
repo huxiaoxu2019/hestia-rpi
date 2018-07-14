@@ -1,3 +1,6 @@
+'''
+Connect to the server, and read msg from the server.
+'''
 import socket, json, sys, logging, time
 
 from hestia.model import message
@@ -12,7 +15,7 @@ def start():
             logging.info("socket read...")
             msg = server.readline()
             if helper.isJson(msg) == True:
-                queue.push_server_read_msg(msg)
+                queue.push_monitor_server_read_msg(msg)
         except socket.error, e:
             logging.info("socket exception" + e.message)
             server.reconnect()

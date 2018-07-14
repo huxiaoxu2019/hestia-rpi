@@ -2,7 +2,6 @@
 
 # author yeelight.com
 # author genialx <admin@ihuxu.com>
-
 from hestia.config import common
 from hestia.util import yeelight
 

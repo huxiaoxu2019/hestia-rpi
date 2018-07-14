@@ -28,7 +28,7 @@ def start():
     global _last_entry
     while True:
         try:
-            logging.info("[library.brain.location:_monitor] did start")
+            logging.info("[library.proxy.location:_monitor] did start")
             current_entry = message.pop_monitor_location_msg()
             _set_status(current_entry)
             if _last_entry["last_dis"] < _DIS_HOME_BOUNDARY and (_last_entry["last_status"] == _STATUS_SMALLER or _last_entry["last_status"] == _STATUS_CONTINUOUS_SMALER) and (int((math.floor(time.time()))) - _last_entry["last_time"] < _TIME_MAX_PAST_4_MONITOR):
@@ -49,11 +49,11 @@ def _set_status(msg):
     msg_obj = json.loads(msg)
     dis = geo.get_distance_hav(msg_obj["data"]["lnt"], msg_obj["data"]["lat"], common.HOME_LNG, common.HOME_LAT)
     dis = int(math.floor(dis * 1000))
-    #logging.info("[library.brain.location:_set_status] dis:" + str(dis) + "m")
+    #logging.info("[library.proxy.location:_set_status] dis:" + str(dis) + "m")
 
     # frequency
     if _last_entry["last_time"] + _TIME_INTERNAL_4_SAVING_ENTRY >= int((math.floor(time.time()))):
-        #logging.info("[library.brain.location:_set_status] return by frequency limit")
+        #logging.info("[library.proxy.location:_set_status] return by frequency limit")
         return
 
     # set status
@@ -77,22 +77,22 @@ def _set_status(msg):
         logging.info("bigger")
         _last_entry["last_status"] = _STATUS_BIGGER
     else:
-        logging.warning("[library.brain.location:_set_status] unknown status")
+        logging.warning("[library.proxy.location:_set_status] unknown status")
 
     _last_entry["last_dis"] = dis
     _last_entry["last_time"] = int(math.floor(time.time()))
 
     # print
-    logging.info("[library.brain.location:_set_status] now entry info status:"
+    logging.info("[library.proxy.location:_set_status] now entry info status:"
             + str(_last_entry["last_status"]) + " time:" + str(_last_entry["last_time"])
             + " dis:" + str(_last_entry["last_dis"]))
 
 def _leave_home():
-    logging.info("[library.brain.location:_leave_home] did start")
+    logging.info("[library.proxy.location:_leave_home] did start")
     global _did_leave_home
     global _did_back_home
     if _did_leave_home == True:
-        logging.info("[library.brain.location:_leave_home] leave home is True")
+        logging.info("[library.proxy.location:_leave_home] leave home is True")
         return
     else:
         # set flags
@@ -101,19 +101,19 @@ def _leave_home():
 
     # turn off the light while the light in the room is bright and light is on
     yeelight_bedroom_light_info = yeelight.get_bulb_info(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
-    logging.info("[library.brain.location:_leave_home] the bulb power:" + str(yeelight_bedroom_light_info[yeelight.IDX_BULB_INFO_POWER]))
+    logging.info("[library.proxy.location:_leave_home] the bulb power:" + str(yeelight_bedroom_light_info[yeelight.IDX_BULB_INFO_POWER]))
     if yeelight_bedroom_light_info[yeelight.IDX_BULB_INFO_POWER] == "off":
-        logging.info("[library.brain.location:_leave_home] the light is already off")
+        logging.info("[library.proxy.location:_leave_home] the light is already off")
         return
     rpi_light_sensor = rpi.get_light_data()
-    logging.info("[library.brain.location:_leave_home] the rpi light sersor data:" + str(rpi_light_sensor))
+    logging.info("[library.proxy.location:_leave_home] the rpi light sersor data:" + str(rpi_light_sensor))
     if rpi_light_sensor == 1:
         return
-    logging.info("[library.brain.location:_leave_home] to turn off the light")
+    logging.info("[library.proxy.location:_leave_home] to turn off the light")
     yeelight.toggle_bulb(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
 
 def _back_home():
-    logging.info("[library.brain.location:_back_home] did start")
+    logging.info("[library.proxy.location:_back_home] did start")
     global _did_leave_home
     global _did_back_home
     global _last_entry
@@ -123,7 +123,7 @@ def _back_home():
         _did_leave_home = True
 
     if _did_back_home == True:
-        logging.info("[library.brain.location:_back_home] back home is True")
+        logging.info("[library.proxy.location:_back_home] back home is True")
         return
     else:
         # set flags
@@ -132,15 +132,15 @@ def _back_home():
 
     # turn on the light while the light in the room is dim and light is off
     yeelight_bedroom_light_info = yeelight.get_bulb_info(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
-    logging.info("[library.brain.location:_back_home] the bulb power:" + str(yeelight_bedroom_light_info[yeelight.IDX_BULB_INFO_POWER]))
+    logging.info("[library.proxy.location:_back_home] the bulb power:" + str(yeelight_bedroom_light_info[yeelight.IDX_BULB_INFO_POWER]))
     if yeelight_bedroom_light_info[yeelight.IDX_BULB_INFO_POWER] == "on":
-        logging.info("[library.brain.location:_back_home] the light is already on")
+        logging.info("[library.proxy.location:_back_home] the light is already on")
         return
     rpi_light_sensor = rpi.get_light_data()
-    logging.info("[library.brain.location:_back_home] the rpi light sersor data:" + str(rpi_light_sensor))
+    logging.info("[library.proxy.location:_back_home] the rpi light sersor data:" + str(rpi_light_sensor))
     if rpi_light_sensor == 0:
         return
-    logging.info("[library.brain.location:_back_home] to turn on the light")
+    logging.info("[library.proxy.location:_back_home] to turn on the light")
     yeelight.toggle_bulb(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT)
     time.sleep(1)
     yeelight.set_bright(yeelight.IDX_YEELIGHT_BEDROOM_LIGHT, 100)
