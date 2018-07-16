@@ -8,11 +8,11 @@ So, Hestia is the project which controlls the devices in home smartly. Additiona
 
 ## Hestia RPi
 
-The system structure
+### System Structure
 
 ![hestia rpi system structrue](https://docs.google.com/drawings/d/e/2PACX-1vTpgVZRdOXad7bBUJzhDz5WTLl1iY-sqSm7NcYyHcPN_yV31wJb0-6Ij7rV6fsWFKkHL01Ov1S6jUrO/pub?w=1920&h=642)
 
-The data flow
+### Data Flow
 ![hestia rpi data flow](https://docs.google.com/drawings/d/e/2PACX-1vRnbZ8Yx5KCMk1CJ0T-gGXwtiTVhi1uE_EqIeaAY_YBBARFwZU4hf6JiD0aJKjXf-Kr_vj8bDs1knrJ/pub?w=961&h=595)
 
 [See more at Hestia Server](https://github.com/GenialX/hestia-server)
