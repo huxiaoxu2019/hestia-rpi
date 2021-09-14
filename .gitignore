@@ -2,3 +2,4 @@
 hestia/console
 hestia/log
 *.swp
+.python-version
