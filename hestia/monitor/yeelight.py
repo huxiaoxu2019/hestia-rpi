@@ -35,7 +35,7 @@ def _send_search_broadcast():
     msg = msg + "ST: wifi_bulb"
     try:
         yeelight.scan_socket.sendto(msg, multicase_address)
-    except  yeelight.scan_socket.error, :
+    except  yeelight.scan_socket.error, e:
         logging.warning("[library.monitor.yeelight:_send_search_broadcast] Error:%s" + str(e)) 
 
 def _bulbs_detection_loop():
